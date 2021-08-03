@@ -3,6 +3,7 @@ import Service from './page/Service'
 import SignUp from './page/SignUp'
 import SignIn from './page/SignIn'
 import Mypage from './page/Mypage'
+import MypageDetail from './page/MypageDetail'
 
 const App = () => {
     return(
@@ -22,6 +23,7 @@ const App = () => {
                 <SignUp />
                 <SignIn />
                 <Mypage />
+                <MypageDetail />
             </div>
         </>
     )
