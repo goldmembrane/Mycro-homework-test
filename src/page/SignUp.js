@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 const SignUp = () => {
 
@@ -18,6 +18,33 @@ const SignUp = () => {
         return passwordRegExp.test(e.target.value)
     }
 
+    // 비밀번호 state
+    const [password, setPassword] = useState('')
+
+    // 비밀번호 input에서 입력받은 값을 password state에 저장하는 함수
+    const savePassword = (e) => {
+        
+        setPassword(e.target.value)
+    }
+
+    // 비밀번호 확인 state
+    const [samePassword, setSamePassword] = useState('')
+
+    // 비밀번호 확인 input에서 입력받은 값을 samePassword에 저장하는 함수
+    const saveSamePassword = (e) => {
+
+        setSamePassword(e.target.value)
+    }
+
+    // 입력한 비밀번호와 비밀번호 확인이 같은 지 검사하는 함수
+    const checkSamePassword = () => {
+        if ( password === samePassword ) {
+            alert('OK!')
+        }else {
+            alert('please check same password!')
+        }
+    }
+
     return(
         <>
             <div className = 'sign-up-wrap'>
@@ -27,17 +54,17 @@ const SignUp = () => {
                 </div>
                 <div className = 'sign-up-password-box'>
                     <span>비밀번호</span>
-                    <input type = 'password' className = 'sign-up-password-input' onBlur = {isPassword}/>
+                    <input type = 'password' className = 'sign-up-password-input' onBlur = {(e) => { savePassword(e); isPassword(e);}} />
                 </div>
                 <div className = 'sign-up-check-password-box'>
                     <span>비밀번호 확인</span>
-                    <input type = 'password' className = 'sign-up-password-input'/>
+                    <input type = 'password' className = 'sign-up-password-input' onBlur = {saveSamePassword}/>
                 </div>
                 <div className = 'sign-up-phone-number-box'>
                     <span>연락처</span>
                     <input type = 'tel' className = 'sign-up-tel-input'/>
                 </div>
-                <button className = 'sign-up-button'>가입하기</button>
+                <button className = 'sign-up-button' onClick = {checkSamePassword}>가입하기</button>
             </div>
         </>
     )
