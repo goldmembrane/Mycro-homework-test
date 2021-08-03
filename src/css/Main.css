@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  height: 100px;
+  background-color: #00c4ff;
+  position: relative;
+}
+
+.logo-box {
+  width: 100px;
+  height: 100px;
+  background-image: url("../image/logo.jpg");
+  display: inline-block;
+}
+
+.menu-navigation-box {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.menu-navigation {
+  display: flex;
+}
+
+.menu {
+  list-style: none;
+  margin-right: 20px;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  cursor: pointer;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.selected {
+  background-color: #6d6e70;
+}
