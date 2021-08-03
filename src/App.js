@@ -1,4 +1,5 @@
 import React from 'react'
+import Service from './page/Service'
 
 const App = () => {
     return(
@@ -13,6 +14,9 @@ const App = () => {
                     </ul>
                 </div>
             </header>
+            <div className = 'content-wrap'>
+                <Service />
+            </div>
         </>
     )
 }
