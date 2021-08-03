@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import SignUp from './page/SignUp'
 import Mypage from './page/Mypage'
 import SignIn from './page/SignIn'
@@ -12,9 +12,9 @@ const App = () => {
                 <div className = 'logo-box'>logo</div>
                 <div className = 'menu-navigation-box'>
                     <ul className = 'menu-navigation'>
-                        <li className = 'menu'>서비스</li>
-                        <li className = 'menu'>회원가입</li>
-                        <li className = 'menu'>로그인</li>
+                        <li className = 'menu'><Link to = '/'>서비스</Link></li>
+                        <li className = 'menu'><Link to = '/sign-up'>회원가입</Link></li>
+                        <li className = 'menu'><Link to = '/login'>로그인</Link></li>
                     </ul>
                 </div>
             </header>
