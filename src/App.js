@@ -2,6 +2,7 @@ import React from 'react'
 import Service from './page/Service'
 import SignUp from './page/SignUp'
 import SignIn from './page/SignIn'
+import Mypage from './page/Mypage'
 
 const App = () => {
     return(
@@ -20,6 +21,7 @@ const App = () => {
                 <Service />
                 <SignUp />
                 <SignIn />
+                <Mypage />
             </div>
         </>
     )
