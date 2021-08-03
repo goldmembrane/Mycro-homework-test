@@ -1,6 +1,7 @@
 import React from 'react'
 import Service from './page/Service'
 import SignUp from './page/SignUp'
+import SignIn from './page/SignIn'
 
 const App = () => {
     return(
@@ -18,6 +19,7 @@ const App = () => {
             <div className = 'content-wrap'>
                 <Service />
                 <SignUp />
+                <SignIn />
             </div>
         </>
     )
