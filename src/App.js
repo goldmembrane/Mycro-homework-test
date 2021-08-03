@@ -1,5 +1,6 @@
 import React from 'react'
 import Service from './page/Service'
+import SignUp from './page/SignUp'
 
 const App = () => {
     return(
@@ -16,6 +17,7 @@ const App = () => {
             </header>
             <div className = 'content-wrap'>
                 <Service />
+                <SignUp />
             </div>
         </>
     )
