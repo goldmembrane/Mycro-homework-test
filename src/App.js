@@ -6,6 +6,8 @@ import SignIn from './page/SignIn'
 import Service from './page/Service'
 import './css/Main.css'
 import Auth from './hoc/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from './actions/userAction'
 
 const App = () => {
 
@@ -27,6 +29,16 @@ const App = () => {
         setPage('login')
     }
 
+    // 토큰을 가져오는 변수
+    const authUser = useSelector(state => state.tokenReducer)
+
+    // 토큰을 초기화시키는 함수
+    const dispatch = useDispatch()
+
+    const resetToken = () => {
+        dispatch(login(""))
+    }
+
     return(
         <Router>
             <header>
@@ -34,8 +46,10 @@ const App = () => {
                 <div className = 'menu-navigation-box'>
                     <ul className = 'menu-navigation'>
                         <Link to = '/' style = {{ textDecoration: 'none'}}><li className = {page === 'service' ? 'menu selected' : 'menu'} onClick = {changeService}>서비스</li></Link>
-                        <Link to = '/sign-up' style = {{ textDecoration: 'none'}}><li className = {page === 'signup' ? 'menu selected' : 'menu'} onClick = {changeSignUp}>회원가입</li></Link>
-                        <Link to = '/login' style = {{ textDecoration: 'none'}}><li className = {page === 'login' ? 'menu selected' : 'menu'} onClick = {changeLogin}>로그인</li></Link>
+                        <Link to = '/sign-up' style = {{ textDecoration: 'none'}}><li className = {authUser.userToken === '' ? 'menu selected' : 'gone'} onClick = {changeSignUp}>회원가입</li></Link>
+                        <Link to = '/mypage/order' style = {{ textDecoration: 'none'}}><li className = {authUser.userToken !== '' ? 'menu selected' : 'gone'}>마이페이지</li></Link>
+                        <Link to = '/login' style = {{ textDecoration: 'none'}}><li className = {authUser.userToken === '' ? 'menu selected' : 'gone'} onClick = {changeLogin}>로그인</li></Link>
+                        <Link to = '/' style = {{ textDecoration: 'none'}}>{authUser.userToken !== '' ? <li className = 'menu selected' onClick = {resetToken}>로그아웃</li> : null }</Link>
                     </ul>
                 </div>
             </header>
