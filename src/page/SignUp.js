@@ -1,11 +1,18 @@
 import React from 'react'
 import '../css/SignUp.css'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/userAction'
 import { withRouter } from 'react-router'
+import { pageStatus } from '../actions/userAction'
 
 const SignUp = ({ history }) => {
+
+    const dispatch = useDispatch()
+
+    const changeService = () => {
+        dispatch(pageStatus('service'))
+    }
 
     // 이메일 체크 정규식
     const isEmail = () => {
@@ -13,7 +20,11 @@ const SignUp = ({ history }) => {
         const email = document.querySelector('.sign-up-email-input')
 
         // 이메일 칸에 형식이 맞으면 true, 아니면 false를 반환한다.
-        return emailRegExp.test(email.value)
+        if (!emailRegExp.test(email.value)) {
+            email.style.setProperty('border', '3px solid red')
+        }else {
+            email.style.setProperty('border', '3px solid green')
+        }
     }
     
     // 비밀번호 체크 정규식
@@ -22,7 +33,11 @@ const SignUp = ({ history }) => {
         const password = document.querySelector('.sign-up-password-input')
         
         // 비밀번호 칸에 8~15자이면 true, 아니면 false를 반환한다.
-        return passwordRegExp.test(password.value)
+        if (!passwordRegExp.test(password.value)) {
+            password.style.setProperty('border', '3px solid red')
+        }else {
+            password.style.setProperty('border', '3px solid green')
+        }
     }
     
     // 입력한 비밀번호와 비밀번호 확인이 같은 지 검사하는 함수
@@ -44,25 +59,26 @@ const SignUp = ({ history }) => {
         if ( !emailRegExp.test(email.value) ) {
 
             // 이메일 유효성을 검사하라는 alert를 띄운다.
-            alert('check email validation!')
+            alert('이메일 형식을 확인해주세요!')
+            email.focus()
 
         // 비밀번호 유효성 여부가 false이면
         } else if ( !passwordRegExp.test(password.value) ) {
 
             // 비밀번호 유효성을 검사하라는 alert를 띄운다.
-            alert('check password validation!')
+            alert('비밀번호 형식을 확인해주세요!')
 
         // 비밀번호와 확인 비밀번호가 같지 않다면
         } else if ( password.value !== samePassword.value ) {
 
             // 비밀번호 재확인을 검사하라는 alert를 띄운다.
-            alert('check same password!')
+            alert('비밀번호가 일치하는 지 확인해주세요')
 
         // 모든 유효성 검사를 통과했으면
         } else {
 
             // OK라는 alert를 띄운다.
-            alert('OK!')
+            alert('회원가입 완료!')
 
             // post요청을 보내는 함수를 실행한다.
             onSignUp()
@@ -71,7 +87,6 @@ const SignUp = ({ history }) => {
         }
     }
 
-    const dispath = useDispatch()
 
     // 양식이 맞다면 서버에 POST요청을 보내는 함수
     const onSignUp = () => {
@@ -89,7 +104,7 @@ const SignUp = ({ history }) => {
             }
         }).then((res) => {
             console.log(res)
-            dispath(login(res.data.token))
+            dispatch(login(res.data.token))
         }).catch((error) => {
             console.log(error)
             throw new Error(error)
@@ -105,7 +120,7 @@ const SignUp = ({ history }) => {
                 </div>
                 <div className = 'sign-up-password-box'>
                     <span>비밀번호</span>
-                    <input type = 'password' className = 'sign-up-password-input' onBlur = {isPassword} />
+                    <input type = 'password' className = 'sign-up-password-input' onChange = {isPassword} />
                 </div>
                 <div className = 'sign-up-check-password-box'>
                     <span>비밀번호 확인</span>
@@ -115,7 +130,7 @@ const SignUp = ({ history }) => {
                     <span>연락처</span>
                     <input type = 'tel' className = 'sign-up-tel-input' />
                 </div>
-                <button className = 'sign-up-button' onClick = {checkValid}>가입하기</button>
+                <button className = 'sign-up-button' onClick = {() => {checkValid(); changeService();}}>가입하기</button>
             </div>
         </>
     )

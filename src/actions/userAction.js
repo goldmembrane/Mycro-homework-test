@@ -1,4 +1,4 @@
-import { AUTH_USER } from "./type"
+import { AUTH_USER, PAGE_CONTROL} from "./type"
 
 export const login = (token) => {
     return {
@@ -6,3 +6,10 @@ export const login = (token) => {
         userToken: token
     }
 }
+
+export const pageStatus = (status) => {
+    return {
+        type: PAGE_CONTROL,
+        pageStatus: status
+    }
+} 

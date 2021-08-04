@@ -40,3 +40,7 @@ header {
 .selected {
   background-color: #6d6e70;
 }
+
+.gone {
+  display: none;
+}

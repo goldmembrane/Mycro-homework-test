@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  width: 100px;
+  margin: 0 auto;
+}
+
+.page-number {
+  list-style: none;
+  display: inline-block;
+  margin-right: 20px;
+  font-size: 25px;
+  cursor: pointer;
+}
