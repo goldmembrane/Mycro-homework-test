@@ -1,8 +1,13 @@
 import React from 'react'
 import '../css/SignIn.css'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { login } from '../actions/userAction'
+import { withRouter } from 'react-router'
 
-const SignIn = () => {
+const SignIn = ({ history}) => {
+
+    const dispatch = useDispatch()
 
     // 입력받은 값을 login api를 통해 서버롤 post요청을 전달하는 함수
     const onSignIn = () => {
@@ -18,6 +23,9 @@ const SignIn = () => {
             }
         }).then((res) => {
             console.log(res)
+            dispatch(login(res.data.token))
+
+            history.push('/')
         }).catch((error) => {
             console.log(error)
         })
@@ -39,4 +47,4 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+export default withRouter(SignIn)
