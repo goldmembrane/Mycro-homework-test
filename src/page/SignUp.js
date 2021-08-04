@@ -1,17 +1,27 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import '../css/SignUp.css'
 
 const SignUp = ({ history }) => {
 
+    // 이메일 state
+    const [email, setEmail] = useState('')
+
+    // 이메일 input에서 입력받은 값을 email state에 저장하는 함수
+    const saveEmail = (e) => {
+
+        setEmail(e.target.value)
+    }
+
     // 이메일 체크 state
-    const [email, setEmail] = useState(false)
+    const [checkEmail, setCheckEmail] = useState(false)
 
     // 이메일 체크 정규식
     const isEmail = (e) => {
         const emailRegExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i
         
         // 이메일 칸에 형식이 맞으면 true, 아니면 false를 반환한다.
-        setEmail(emailRegExp.test(e.target.value))
+        setCheckEmail(emailRegExp.test(e.target.value))
     }
     
     // 비밀번호 유효성 체크 state
@@ -43,10 +53,19 @@ const SignUp = ({ history }) => {
         setSamePassword(e.target.value)
     }
 
+    // 전화번호 state
+    const [mobile, setMobile] = useState('')
+
+    // 전화번호 input에서 입력받은 값을 mobile state에 저장하는 함수
+    const saveMobile = (e) => {
+
+        setMobile(e.target.value)
+    }
+
     // 입력한 비밀번호와 비밀번호 확인이 같은 지 검사하는 함수
     const checkValid = () => {
         // 이메일 유효성 여부가 false이면
-        if ( !email ) {
+        if ( !checkEmail ) {
 
             // 이메일 유효성을 검사하라는 alert를 띄운다.
             alert('check email validation!')
@@ -71,12 +90,32 @@ const SignUp = ({ history }) => {
         }
     }
 
+    // 양식이 맞다면 서버에 POST요청을 보내는 함수
+    const onSignUp = () => {
+        const { sendEmail, sendPassword, sendMobile } = [email, password, mobile]
+
+        axios({
+            method: 'POST',
+            url: 'https://mycroft-test-api.herokuapp.com/sign-up',
+            data: {
+                "email": sendEmail,
+                "password": sendPassword,
+                "mobile": sendMobile
+            }
+        }).then((res) => {
+            console.log(res)
+        }).catch((error) => {
+            console.log(error)
+            throw new Error(error)
+        })
+    }
+
     return(
         <>
             <div className = 'sign-up-wrap'>
                 <div className = 'sign-up-email-box'>
                     <span>이메일</span>
-                    <input type = 'email' className = 'sign-up-email-input' onBlur = {isEmail}/>
+                    <input type = 'email' className = 'sign-up-email-input' onBlur = {(e) => { saveEmail(e); isEmail(e);}}/>
                 </div>
                 <div className = 'sign-up-password-box'>
                     <span>비밀번호</span>
@@ -88,9 +127,9 @@ const SignUp = ({ history }) => {
                 </div>
                 <div className = 'sign-up-phone-number-box'>
                     <span>연락처</span>
-                    <input type = 'tel' className = 'sign-up-tel-input'/>
+                    <input type = 'tel' className = 'sign-up-tel-input' onBlur = {saveMobile}/>
                 </div>
-                <button className = 'sign-up-button' onClick = {() => {checkValid(); history.push('/');}}>가입하기</button>
+                <button className = 'sign-up-button' onClick = {() => {checkValid(); onSignUp(); history.push('/');}}>가입하기</button>
             </div>
         </>
     )
