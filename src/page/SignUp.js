@@ -87,12 +87,20 @@ const SignUp = ({ history }) => {
 
             // OK라는 alert를 띄운다.
             alert('OK!')
+
+            // post요청을 보내는 함수를 실행한다.
+            onSignUp()
+
+            // 서비스 페이지로 돌아간다.
+            history.push('/')
         }
     }
 
     // 양식이 맞다면 서버에 POST요청을 보내는 함수
     const onSignUp = () => {
         const { sendEmail, sendPassword, sendMobile } = [email, password, mobile]
+
+        console.log([sendEmail, sendPassword, sendMobile])
 
         axios({
             method: 'POST',
@@ -129,7 +137,7 @@ const SignUp = ({ history }) => {
                     <span>연락처</span>
                     <input type = 'tel' className = 'sign-up-tel-input' onBlur = {saveMobile}/>
                 </div>
-                <button className = 'sign-up-button' onClick = {() => {checkValid(); onSignUp(); history.push('/');}}>가입하기</button>
+                <button className = 'sign-up-button' onClick = {checkValid}>가입하기</button>
             </div>
         </>
     )
