@@ -20,6 +20,10 @@
   top: 10px;
 }
 
+.sign-up-email-input:focus {
+  outline: none;
+}
+
 .sign-up-password-box {
   margin: 30px auto;
   width: 400px;
@@ -36,12 +40,20 @@
   top: 10px;
 }
 
+.sign-up-password-input:focus {
+  outline: none;
+}
+
 .sign-up-same-password-input {
   width: 150px;
   height: 16px;
   position: absolute;
   right: 0;
   top: 10px;
+}
+
+.sign-up-same-password-input:focus {
+  outline: none;
 }
 
 .sign-up-check-password-box {

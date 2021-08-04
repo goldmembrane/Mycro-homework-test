@@ -1,4 +1,6 @@
 import React from 'react'
+import '../css/Item.css'
+
 
 const Item = (props) => {
     return(
