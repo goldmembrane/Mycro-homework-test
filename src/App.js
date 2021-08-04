@@ -5,6 +5,7 @@ import Mypage from './page/Mypage'
 import SignIn from './page/SignIn'
 import Service from './page/Service'
 import './css/Main.css'
+import Auth from './hoc/auth'
 
 const App = () => {
 
@@ -41,9 +42,9 @@ const App = () => {
             <div className = 'content-wrap'></div>
             <Switch>
                 <Route exact path = '/' component = {Service} />
-                <Route path = '/sign-up' component = {SignUp} />
+                <Route path = '/sign-up' component = {Auth(SignUp)} />
                 <Route path = '/mypage/order' component = {Mypage} />
-                <Route path = '/login' component = {SignIn} />
+                <Route path = '/login' component = {Auth(SignIn)} />
                 <Route path = {['/', 'logout']} component = {Service} />
             </Switch>
         </Router>
