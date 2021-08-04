@@ -1,6 +1,9 @@
-import axios from 'axios'
 import React from 'react'
 import '../css/SignUp.css'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { login } from '../actions/userAction'
+import { withRouter } from 'react-router'
 
 const SignUp = ({ history }) => {
 
@@ -64,10 +67,11 @@ const SignUp = ({ history }) => {
             // post요청을 보내는 함수를 실행한다.
             onSignUp()
 
-            // 서비스 페이지로 돌아간다.
             history.push('/')
         }
     }
+
+    const dispath = useDispatch()
 
     // 양식이 맞다면 서버에 POST요청을 보내는 함수
     const onSignUp = () => {
@@ -85,6 +89,7 @@ const SignUp = ({ history }) => {
             }
         }).then((res) => {
             console.log(res)
+            dispath(login(res.data.token))
         }).catch((error) => {
             console.log(error)
             throw new Error(error)
@@ -116,4 +121,4 @@ const SignUp = ({ history }) => {
     )
 }
 
-export default SignUp
+export default withRouter(SignUp)
