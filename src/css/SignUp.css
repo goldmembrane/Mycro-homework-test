@@ -36,6 +36,14 @@
   top: 10px;
 }
 
+.sign-up-same-password-input {
+  width: 150px;
+  height: 16px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+}
+
 .sign-up-check-password-box {
   margin: 30px auto;
   width: 400px;
