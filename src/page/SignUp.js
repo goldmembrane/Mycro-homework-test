@@ -1,11 +1,18 @@
 import React from 'react'
 import '../css/SignUp.css'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/userAction'
 import { withRouter } from 'react-router'
+import { pageStatus } from '../actions/userAction'
 
 const SignUp = ({ history }) => {
+
+    const dispatch = useDispatch()
+
+    const changeService = () => {
+        dispatch(pageStatus('service'))
+    }
 
     // 이메일 체크 정규식
     const isEmail = () => {
@@ -80,7 +87,6 @@ const SignUp = ({ history }) => {
         }
     }
 
-    const dispath = useDispatch()
 
     // 양식이 맞다면 서버에 POST요청을 보내는 함수
     const onSignUp = () => {
@@ -98,7 +104,7 @@ const SignUp = ({ history }) => {
             }
         }).then((res) => {
             console.log(res)
-            dispath(login(res.data.token))
+            dispatch(login(res.data.token))
         }).catch((error) => {
             console.log(error)
             throw new Error(error)
@@ -124,7 +130,7 @@ const SignUp = ({ history }) => {
                     <span>연락처</span>
                     <input type = 'tel' className = 'sign-up-tel-input' />
                 </div>
-                <button className = 'sign-up-button' onClick = {checkValid}>가입하기</button>
+                <button className = 'sign-up-button' onClick = {() => {checkValid(); changeService();}}>가입하기</button>
             </div>
         </>
     )

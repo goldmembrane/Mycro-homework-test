@@ -1,13 +1,18 @@
 import React from 'react'
 import '../css/SignIn.css'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../actions/userAction'
 import { withRouter } from 'react-router'
+import { pageStatus } from '../actions/userAction'
 
 const SignIn = ({ history}) => {
 
     const dispatch = useDispatch()
+
+    const changeService = () => {
+        dispatch(pageStatus('service'))
+    }
 
     // 입력받은 값을 login api를 통해 서버롤 post요청을 전달하는 함수
     const onSignIn = () => {
@@ -41,7 +46,7 @@ const SignIn = ({ history}) => {
                     <span>비밀번호</span>
                     <input type = 'password' className = 'sign-in-password-input' />
                 </div>
-                <button className = 'sign-in-button' onClick = {onSignIn}>로그인</button>
+                <button className = 'sign-in-button' onClick = {() => {onSignIn(); changeService();}}>로그인</button>
             </div>
         </>
     )
