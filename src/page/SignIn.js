@@ -9,8 +9,6 @@ const SignIn = () => {
         const sendEmail = document.querySelector('.sign-in-email-input')
         const sendPassword = document.querySelector('.sign-in-password-input')
 
-        console.log(sendEmail.value)
-
         axios({
             method: "POST",
             url: 'https://mycroft-test-api.herokuapp.com/login',
